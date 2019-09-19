@@ -1,0 +1,103 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes"
+  access="global"
+  controller="AccountManagerAuraController"
+>
+  <!-- ******************* Initialize Variables ******************* -->
+
+  <aura:attribute
+    name="pageTitle"
+    type="String"
+    default="Account Manager"
+    access="global"
+  />
+  <aura:attribute name="accountList" type="List" access="global" />
+  <aura:attribute
+    name="newAccount"
+    type="Account"
+    default="{ 'sobjectType': 'Account',
+                 'Name': '',
+                 'Phone': ''}"
+  />
+
+  <!-- ******************* Handlers ******************* -->
+
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <!-- ******************* Displayed Content ******************* -->
+
+  <div class="slds-box slds-theme_default ">
+    <div class="slds-text-heading_medium custom-color">
+      <h1>{!v.pageTitle}</h1>
+    </div>
+
+    <form class="slds-form--stacked slds-p-bottom_large">
+      <lightning:input
+        aura:id="accountForm"
+        label="Account Name"
+        name="name"
+        value="{!v.newAccount.Name}"
+        required="true"
+      />
+      <lightning:input
+        type="text"
+        aura:id="accountForm"
+        label="Phone"
+        name="Phone"
+        value="{!v.newAccount.Phone}"
+      />
+      <lightning:button
+        label="Create Account"
+        class="slds-m-top--medium"
+        variant="brand"
+        onclick="{!c.createAccount}"
+      />
+    </form>
+
+    <table
+      class="slds-table slds-table_cell-buffer slds-table_bordered custom-padding"
+    >
+      <!-- Columns -->
+      <thead>
+        <tr class="slds-line-height_reset">
+          <th class="" scope="col">
+            <div class="" title="Account Name">Name</div>
+          </th>
+
+          <th class="" scope="col">
+            <div class="" title="Phone">Phone</div>
+          </th>
+          <th class="" scope="col">
+            <div class="" title="Created Date">Created Date</div>
+          </th>
+        </tr>
+      </thead>
+      <!-- Rows -->
+      <tbody>
+        <aura:iteration items="{!v.accountList}" var="account">
+          <tr class="slds-hint-parent slds-has-flexi-truncate">
+            <td data-label="Account Name" scope="row" class="">
+              <div title="Account Name">
+                <p class="slds-truncate">{!account.Name}</p>
+              </div>
+            </td>
+            <td data-label="Phone" scope="row" class="">
+              <div class="" title="Phone">
+                <p class="slds-truncate">
+                  {!account.Phone}
+                </p>
+              </div>
+            </td>
+            <td data-label="Created Date" scope="row" class="">
+              <div class="" title="Created Date">
+                <p class="slds-truncate">
+                  {!account.CreatedDate}
+                </p>
+              </div>
+            </td>
+          </tr>
+        </aura:iteration>
+      </tbody>
+    </table>
+  </div>
+</aura:component>

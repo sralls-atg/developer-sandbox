@@ -1,0 +1,50 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes"
+  access="global"
+  controller="uploadCSVController"
+>
+  <aura:attribute name="accept" type="List" default="['.csv']" />
+  <aura:attribute name="multiple" type="Boolean" default="true" />
+  <aura:attribute name="disabled" type="Boolean" default="false" />
+  <aura:attribute name="title" type="String" default="Upload CSV" />
+  <aura:attribute name="fileToBeUploaded" type="Object[]" />
+  <aura:attribute name="fileName" type="String" default="No File Selected.." />
+
+  <lightning:card>
+    <aura:set attribute="title">
+      <lightning:icon iconName="utility:connected_apps" size="small" />
+      {! v.title }
+    </aura:set>
+
+    <div class="container">
+      <p
+        >Upload Pricing Strategy CSV in order to generate pricing calculations
+        for this deal.</p
+      >
+
+      <lightning:input
+        aura:id="file"
+        onchange="{!c.handleFilesChange}"
+        type="file"
+        name="file"
+        accept=".csv"
+        multiple="false"
+      />
+
+      <div
+        style="margin-top:10px;"
+        class="slds-text-body_middle slds-text-color_blue"
+        >{!v.fileName}
+      </div>
+
+      <!-- files="{!v.fileToBeUploaded}" -->
+
+      <button
+        style="margin-top:10px;"
+        class="slds-button slds-button_brand"
+        onclick="{!c.uploadFile}"
+        >Update Pricing Manager</button
+      >
+    </div>
+  </lightning:card>
+</aura:component>
